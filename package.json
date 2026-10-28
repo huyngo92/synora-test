@@ -9,14 +9,14 @@
   "files": [
     "bin",
     "src",
+    "vendor",
     "docs",
     "examples",
     "README.md",
     "LICENSE"
   ],
-  "dependencies": {
-    "playwright-core": "^1.40.0",
-    "@playwright/test": "^1.40.0"
+  "scripts": {
+    "sync-playwright": "scripts/sync-playwright-fork.sh"
   },
   "engines": {
     "node": ">=18"
@@ -38,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/huyngo92/synora-test/issues"
   },
-  "license": "MIT",
+  "license": "(MIT AND Apache-2.0)",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"

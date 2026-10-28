@@ -31,12 +31,11 @@
 ```bash
 # Cài từ npm
 npm install -g synora-test
-npx playwright install chromium
+synora-test install          # tải chromium cho Playwright đi kèm
 
 # Hoặc từ source (dev local)
 git clone https://github.com/huyngo92/synora-test.git
 cd synora-test
-npm install
 npm link
 
 # Kiểm tra
@@ -507,7 +506,7 @@ synora-test run flows/ --output-dir my-results
 synora-test run flows/ --no-report
 
 # Xem trace sau khi chạy
-npx playwright show-trace test-results/traces/flows_login-admin.zip
+synora-test show-trace test-results/traces/flows_login-admin.zip
 ```
 
 ### Hành vi mặc định

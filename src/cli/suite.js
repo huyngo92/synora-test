@@ -99,7 +99,7 @@ async function run(argv) {
   const outputDir = path.resolve(process.cwd(), config.outputDir);
   fs.mkdirSync(outputDir, { recursive: true });
 
-  const pw = require('playwright-core');
+  const pw = require('../playwright').playwright();
   const browserType = pw[config.browser] ?? pw.chromium;
   const launchOpts = {
     headless: !config.headed,

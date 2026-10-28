@@ -1,0 +1,7 @@
+This directory contains a modified build of Playwright (playwright-core)
+Copyright (c) Microsoft Corporation, licensed under the Apache License 2.0.
+
+Modifications by huyngo92 for synora-test:
+  - codegen: YAML target (--target=yaml) and --domain-mapping option.
+
+Source version: 1.61.0-next

@@ -28,7 +28,7 @@ const { execSync } = require('child_process');
  *   --report-dir <dir>          Directory for Playwright HTML report (default: playwright-report)
  *   --no-report                Skip generating Playwright HTML report
  *   --custom-report            Also generate custom report.html + report.json
- *   --open                     Auto-open the Playwright HTML report after run
+ *   --open                     Auto-open the HTML report after run
  */
 async function run(argv) {
   const opts = _parseArgs(argv);
@@ -53,8 +53,7 @@ async function run(argv) {
   const outputDir = path.resolve(process.cwd(), opts.outputDir);
   fs.mkdirSync(outputDir, { recursive: true });
 
-  // Load playwright-core from sibling monorepo package
-  const pw = require('playwright-core');
+  const pw = require('../playwright').playwright();
   const browserType = pw[opts.browser] ?? pw.chromium;
 
   const browser = await browserType.launch({
@@ -200,14 +199,16 @@ async function run(argv) {
     console.log(`🎭 Playwright report: ${relDir}/index.html`);
 
     if (opts.open) {
+      const htmlFile = path.join(pwReportDir, 'index.html');
+      const opener = process.platform === 'darwin' ? 'open'
+        : process.platform === 'win32' ? 'start ""' : 'xdg-open';
       try {
-        execSync(
-          `node ${JSON.stringify(require.resolve('@playwright/test/cli'))} show-report ${JSON.stringify(pwReportDir)}`,
-          { stdio: 'inherit' }
-        );
-      } catch { /* user closed the server */ }
+        execSync(`${opener} ${JSON.stringify(htmlFile)}`, { stdio: 'ignore' });
+      } catch {
+        console.log(`   Open: ${htmlFile}`);
+      }
     } else {
-      console.log(`   Run: npx playwright show-report ${relDir}`);
+      console.log(`   Open: ${path.join(relDir, 'index.html')}`);
     }
   }
 
@@ -248,7 +249,7 @@ function _parseArgs(argv) {
     report: true,           // generate Playwright HTML report by default
     reportDir: 'playwright-report',
     customReport: false,    // opt-in: also generate custom report.html + report.json
-    open: false,            // auto-open report with show-report server
+    open: false,            // auto-open HTML report in default browser
     live: false,            // stream a CDP screencast (live browser view) over stdout
   };
 

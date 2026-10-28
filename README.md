@@ -10,7 +10,7 @@
 ```bash
 # Cài từ npm (global)
 npm install -g synora-test
-npx playwright install chromium   # tải browser cho Playwright (chỉ cần 1 lần)
+synora-test install               # tải browser cho Playwright đi kèm (chỉ cần 1 lần)
 
 # Hoặc cài vào project
 npm install --save-dev synora-test
@@ -19,12 +19,23 @@ npx synora-test --help
 # Từ source (dev local)
 git clone https://github.com/huyngo92/synora-test.git
 cd synora-test
-npm install
 npm link
 
 # Kiểm tra
 synora-test --help
 ```
+
+### Playwright đi kèm
+
+synora-test đóng gói sẵn một bản fork của [Playwright](https://github.com/microsoft/playwright) (`playwright-core`) trong `vendor/playwright-core`, nên không cần cài `playwright` riêng. Bản fork bổ sung codegen ra YAML (`--target=yaml`, `--domain-mapping`).
+
+Cập nhật bản fork (dành cho maintainer, fork phải được build trước):
+
+```bash
+npm run sync-playwright -- /path/to/playwright/packages/playwright-core
+```
+
+Playwright được phân phối theo Apache License 2.0, xem `vendor/playwright-core/LICENSE` và `vendor/playwright-core/NOTICE`.
 
 ---
 

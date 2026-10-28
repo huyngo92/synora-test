@@ -8,6 +8,8 @@ Usage:
   synora-test codegen [url]             Open browser recorder, generate YAML flow
   synora-test run <file|dir>            Run a YAML flow file or all flows in a folder
   synora-test suite <suite.yaml>        Run a multi-group test suite
+  synora-test install [browser...]      Download browsers for the bundled Playwright (default: chromium)
+  synora-test show-trace <trace.zip>    Open a recorded trace in Playwright Trace Viewer
   synora-test --help                    Show this help
 
 Options for codegen:
@@ -57,6 +59,17 @@ switch (command) {
   case 'suite':
     require('../src/cli/suite').run(args.slice(1));
     break;
+  case 'install':
+  case 'show-trace': {
+    // Pass-through to the bundled Playwright CLI
+    const { PLAYWRIGHT_CLI } = require('../src/playwright');
+    const rest = args.slice(1);
+    if (command === 'install' && !rest.length)
+      rest.push('chromium');
+    const { status } = require('child_process').spawnSync(
+      process.execPath, [PLAYWRIGHT_CLI, command, ...rest], { stdio: 'inherit' });
+    process.exit(status ?? 1);
+  }
   default:
     console.error(`Unknown command: ${command}\nRun synora-test --help for usage.`);
     process.exit(1);

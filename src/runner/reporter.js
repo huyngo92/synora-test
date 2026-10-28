@@ -442,7 +442,7 @@ function _pageFrame({ title, suiteName, ts, total, passed, failed, duration, fil
     ${body || '<p style="text-align:center;padding:40px;color:var(--c-muted)">Không có kết quả</p>'}
   </div>
 
-  <footer>synora-test &bull; make by huy.ngolong &bull; CRM QC SmartSales</footer>
+  <footer>synora-test &bull; make by huy.ngolong &bull; huyngo92</footer>
   <script>${_JS}</script>
 </body>
 </html>`;

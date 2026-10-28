@@ -1,6 +1,6 @@
 {
   "name": "synora-test",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Synora Test Automation Framework — web & API testing powered by Playwright",
   "main": "src/index.js",
   "bin": {

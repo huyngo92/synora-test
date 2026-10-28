@@ -1,0 +1,11 @@
+appId: browser
+name: Example — Google Search
+config:
+  baseUrl: ${BASE_URL:-https://www.google.com}
+---
+- openLink: ${config.baseUrl}
+- tapOn:
+    css: textarea[name="q"], input[name="q"]
+- inputText: Playwright automation
+- pressKey: Enter
+- assertVisible: Playwright
